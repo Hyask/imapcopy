@@ -211,10 +211,11 @@ class IMAP_Copy(object):
             typ, data = connection.list(source_folder)
             for d in data:
                 if d:
+                    d = d.decode()
                     l_resp = d.split('"')
                     # response = '(\HasChildren) "/" INBOX'
-                    if len(l_resp) == 3:
-                        source_mbox = l_resp[2].strip()
+                    if len(l_resp) >= 3:
+                        source_mbox = l_resp[-2].strip()
                         print(source_mbox)
                         # make sure we don't have a recursive loop
                         if source_mbox != source_folder:
